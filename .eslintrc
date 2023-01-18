@@ -1,0 +1,24 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2015
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "eqeqeq": "warn",
+    "prettier/prettier": "warn",
+    "no-console": "warn",
+    "no-var": "warn"
+  }
+}

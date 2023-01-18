@@ -4,7 +4,7 @@
   "description": "tdd with express",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon index.js",
     "test": "jest --watch",
     "coverage": "npm test -- --coverage",
     "lint": "eslint . --fix"
@@ -12,7 +12,9 @@
   "author": "Rupak Lama",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
   },
   "devDependencies": {
     "eslint": "^8.32.0",
@@ -22,30 +24,5 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "supertest": "^6.3.3"
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 2015
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:prettier/recommended"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "env": {
-      "node": true,
-      "es6": true,
-      "jest": true
-    },
-    "rules": {
-      "eqeqeq": "warn",
-      "prettier/prettier": "warn"
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "printWidth": 120
   }
 }
