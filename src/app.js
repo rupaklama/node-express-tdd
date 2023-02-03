@@ -1,17 +1,17 @@
 const express = require('express');
 
-const UserModel = require('./models/UserModel');
+const userRouter = require('./routes/user/userRoutes');
 
 const app = express();
 
 // Middleware to consume Request Body Object - default body parser package
 app.use(express.json());
 
-app.post('/api/1.0/users', (req, res) => {
-  // save user to db
-  UserModel.create(req.body).then(() => {
-    return res.status(200).json({ message: 'User created' });
-  });
-});
+app.use(userRouter);
 
+// console.log('env: ' + process.env.NODE_ENV);
+// console.log(process.env);
+
+// note - Not Listening our app here since avoiding port issues in out tests
+// It's listening & running in index.js
 module.exports = app;

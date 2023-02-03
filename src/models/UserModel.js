@@ -29,6 +29,7 @@ UserModel.init(
     // options object
     // our sequelize instance
     sequelize,
+
     // table name
     modelName: 'user',
   }
