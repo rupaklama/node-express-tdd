@@ -37,5 +37,6 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
 // note - We set the NODE_ENV environment with cross-env dependency we installed in package.json
 // For the test script we set the env to test, and for start script, we set the env as development.
 // Based on this env, relevant config file is selected and app initialized with that configuration
-
+// The sqlite database can run in memory.
+// It is being initialized when the tests are running, and it is gone after the tests are ended.
 module.exports = sequelize;
