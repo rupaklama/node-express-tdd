@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1675615835974" clover="3.2.0">
-  <project timestamp="1675615835974" name="All files">
-    <metrics statements="31" coveredstatements="30" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2" elements="35" coveredelements="34" complexity="0" loc="31" ncloc="31" packages="4" files="4" classes="4"/>
+<coverage generated="1692307324377" clover="3.2.0">
+  <project timestamp="1692307324378" name="All files">
+    <metrics statements="53" coveredstatements="48" conditionals="6" coveredconditionals="3" methods="8" coveredmethods="6" elements="67" coveredelements="57" complexity="0" loc="53" ncloc="53" packages="5" files="7" classes="7"/>
     <package name="src">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="16" coveredstatements="14" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="2"/>
       <file name="app.js" path="/Users/rupaklama/Desktop/node-tdd/src/app.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="16" coveredstatements="14" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="45" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="46" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.config">
+    <package name="src.appConfig">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="database.js" path="/Users/rupaklama/Desktop/node-tdd/src/config/database.js">
+      <file name="database.js" path="/Users/rupaklama/Desktop/node-tdd/src/appConfig/database.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.models">
@@ -37,24 +47,48 @@
       </file>
     </package>
     <package name="src.routes.user">
-      <metrics statements="15" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <metrics statements="19" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="userRoutes.js" path="/Users/rupaklama/Desktop/node-tdd/src/routes/user/userRoutes.js">
-        <metrics statements="15" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="44" count="10" type="stmt"/>
-        <line num="50" count="10" type="stmt"/>
-        <line num="52" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="55" count="6" type="stmt"/>
-        <line num="56" count="5" type="stmt"/>
-        <line num="66" count="5" type="stmt"/>
-        <line num="83" count="5" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+      </file>
+      <file name="userService.js" path="/Users/rupaklama/Desktop/node-tdd/src/routes/user/userService.js">
+        <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utils">
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
+      <file name="appError.js" path="/Users/rupaklama/Desktop/node-tdd/src/utils/appError.js">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+      <file name="catchAsync.js" path="/Users/rupaklama/Desktop/node-tdd/src/utils/catchAsync.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
       </file>
     </package>
   </project>

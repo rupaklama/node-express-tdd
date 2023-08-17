@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 // Sequelize instance to connect to db
-const sequelize = require('../config/database');
+const sequelize = require('../appConfig/database');
 
 // Models are the essence of Sequelize.
 // A model is an abstraction that represents a table in your database.
@@ -31,7 +31,7 @@ UserModel.init(
     sequelize,
 
     // table name
-    modelName: 'user',
+    modelName: 'users',
   }
 );
 

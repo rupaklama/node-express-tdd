@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../../models/UserModel');
 
-const save = async (body) => {
+const createUser = async (body) => {
   // hash password - hash(data, salt, cb)
   const hash = await bcrypt.hash(body.password, 10);
 
@@ -11,4 +11,4 @@ const save = async (body) => {
   await UserModel.create(user);
 };
 
-module.exports = { save };
+module.exports = { createUser };
