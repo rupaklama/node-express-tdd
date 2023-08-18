@@ -13,6 +13,9 @@ const Sequelize = require('sequelize');
 
 // env variables
 const config = require('config');
+// note: 'config' dependency by default looks in our root directory for folder/file - config
+// If it is a folder, the dev env config file is in development.json
+// and the test env config file is in test.json
 
 // note - we will be using 'database.sqlite' module in development environment &
 // using in-memory sqlite database for tests in test environment with th help of 'cross-env'

@@ -9,17 +9,23 @@ const app = express();
 app.use(express.json());
 
 // ROUTES
-app.get('/', (req, res) => {
-  res.status(200).send('welcome');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('welcome');
+// });
 
 app.use('/api/1.0', userRouter);
 
 // NODE_ENV is automatically set & detected based on the current environment like dev, test or prod
 // It is very helpful on setting configurations & application logic based on the NODE_ENV variable
-// console.log('env: ' + process.env.NODE_ENV);
+console.log('env config: ' + process.env.NODE_ENV);
 // note - we will be using 'database.sqlite' module in development environment &
 // using in-memory sqlite database for tests in test environment
+
+// NOTE: cross-env
+// We set the environment with 'cross-env' dependency.
+// For the test script we set the env to 'test', and for start script, we set the env as 'development'.
+// Based on this env, relevant config file is selected with 'config' package
+// and app is initialized with that configuration.
 
 // Global Unhandled routes for ALL HTTP methods
 // note - this MUST come after all the Route Handles, set to the end
