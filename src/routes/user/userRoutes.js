@@ -21,9 +21,30 @@ router.post(
       .toLowerCase()
       // and then Validation
       .notEmpty()
-      .withMessage('Username cannot be empty'),
+      .withMessage('Username cannot be empty')
+      .bail()
+      .isLength({ min: 4, max: 20 })
+      .withMessage('Must be between 4 and 20 characters'),
 
-    check('email').trim().toLowerCase().notEmpty().withMessage('Email cannot be empty'),
+    check('email')
+      .trim()
+      .toLowerCase()
+      .notEmpty()
+      .withMessage('Email cannot be empty')
+      .bail()
+      .isEmail()
+      .withMessage('Email is not valid'),
+
+    check('password')
+      .notEmpty()
+      .withMessage('Password cannot be empty')
+      .bail()
+      .isLength({ min: 6 })
+      .withMessage('Password must be at least 6 characters')
+
+      .bail()
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/)
+      .withMessage('Password must have at least 1 uppercase, 1 lowercase letter and 1 number'),
   ],
 
   catchAsync(async (req, res, next) => {

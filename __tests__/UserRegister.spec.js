@@ -119,4 +119,77 @@ describe('User Registration', () => {
     expect(response.body.validationErrors.username).toBe('Username cannot be empty');
     expect(response.body.validationErrors.email).toBe('Email cannot be empty');
   });
+
+  it('returns size validation error when username is less than 4 characters', async () => {
+    const response = await request(app).post('/api/1.0/users').send({
+      username: 'us1',
+      email: 'user1@mail.com',
+      password: 'P4ssword',
+    });
+
+    expect(response.body.validationErrors.username).toBe('Must be between 4 and 20 characters');
+  });
+
+  it('returns email validation error when email is not valid', async () => {
+    const response = await request(app).post('/api/1.0/users').send({
+      username: 'us1',
+      email: 'user@mail',
+      password: 'P4ssword',
+    });
+
+    expect(response.body.validationErrors.email).toBe('Email is not valid');
+  });
+
+  // it('returns `Password cannot be empty` message when password is null', async () => {
+  //   const response = await request(app).post('/api/1.0/users').send({
+  //     username: 'user1',
+  //     email: 'user1@mail.com',
+  //     password: null,
+  //   });
+
+  //   expect(response.body.validationErrors.password).toBe('Password cannot be empty');
+  // });
+
+  // note: dynamic tests with Jest, good practice for repeating tests to keep code DRY
+  // it.each([
+  //   // field, assertion
+  //   ['password', 'Password cannot be empty'],
+  //   ['password', 'Password must be at least 6 characters'],
+  //   ['password', 'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'],
+  // ])('when %s is null, %s is received', async (field, expectedMessage) => {
+  //   const user = {
+  //     username: 'user1',
+  //     email: 'user1@mail.com',
+  //     password: 'hello',
+  //   };
+
+  //   user[field] = null;
+  //   const response = await request(app).post('/api/1.0/users').send(user);
+  //   const body = response.body;
+  //   expect(body.validationErrors[field]).toBe(expectedMessage);
+  // });
+
+  // an alternative syntax for above
+  it.each`
+    field         | value              | expectedMessage
+    ${'password'} | ${null}            | ${'Password cannot be empty'}
+    ${'password'} | ${'hello'}         | ${'Password must be at least 6 characters'}
+    ${'password'} | ${'alllowercase'}  | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+    ${'password'} | ${'ALLUPPERCASE'}  | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+    ${'password'} | ${'1234567'}       | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+    ${'password'} | ${'lowerandUPPER'} | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+    ${'password'} | ${'lowerand4667'}  | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+    ${'password'} | ${'UPPER4667'}     | ${'Password must have at least 1 uppercase, 1 lowercase letter and 1 number'}
+  `('returns $expectedMessage when $field is $value', async ({ field, value, expectedMessage }) => {
+    const user = {
+      username: 'user1',
+      email: 'user1@mail.com',
+      password: 'Password',
+    };
+
+    user[field] = value;
+    const response = await request(app).post('/api/1.0/users').send(user);
+    const body = response.body;
+    expect(body.validationErrors[field]).toBe(expectedMessage);
+  });
 });

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1692382692722" clover="3.2.0">
-  <project timestamp="1692382692723" name="All files">
+<coverage generated="1693934287447" clover="3.2.0">
+  <project timestamp="1693934287447" name="All files">
     <metrics statements="56" coveredstatements="55" conditionals="8" coveredconditionals="5" methods="8" coveredmethods="8" elements="72" coveredelements="68" complexity="0" loc="56" ncloc="56" packages="5" files="7" classes="7"/>
     <package name="src">
       <metrics statements="15" coveredstatements="14" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
@@ -56,15 +56,15 @@
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="46" count="10" type="stmt"/>
-        <line num="48" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="49" count="5" type="stmt"/>
-        <line num="52" count="6" type="stmt"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="56" count="5" type="stmt"/>
-        <line num="58" count="5" type="stmt"/>
-        <line num="60" count="5" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
+        <line num="67" count="20" type="stmt"/>
+        <line num="69" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="15" type="stmt"/>
+        <line num="73" count="17" type="stmt"/>
+        <line num="74" count="15" type="stmt"/>
+        <line num="77" count="5" type="stmt"/>
+        <line num="79" count="5" type="stmt"/>
+        <line num="81" count="5" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
       </file>
       <file name="userService.js" path="/Users/rupaklama/Desktop/node-tdd/src/routes/user/userService.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -91,7 +91,7 @@
       <file name="catchAsync.js" path="/Users/rupaklama/Desktop/node-tdd/src/utils/catchAsync.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="8" count="10" type="stmt"/>
+        <line num="8" count="20" type="stmt"/>
       </file>
     </package>
   </project>
