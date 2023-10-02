@@ -140,6 +140,20 @@ describe('User Registration', () => {
     expect(response.body.validationErrors.email).toBe('Email is not valid');
   });
 
+  it('returns email validation error when same email is already in use', async () => {
+    // first call
+    await postValidUser();
+
+    // second call
+    const response = await request(app).post('/api/1.0/users').send({
+      username: 'user1',
+      email: 'user1@mail.com',
+      password: 'P4ssword',
+    });
+
+    expect(response.body.validationErrors.email).toBe('Email in use');
+  });
+
   // it('returns `Password cannot be empty` message when password is null', async () => {
   //   const response = await request(app).post('/api/1.0/users').send({
   //     username: 'user1',
@@ -191,5 +205,34 @@ describe('User Registration', () => {
     const response = await request(app).post('/api/1.0/users').send(user);
     const body = response.body;
     expect(body.validationErrors[field]).toBe(expectedMessage);
+  });
+
+  it('creates user in inactive mode on initial signup', async () => {
+    await postValidUser();
+
+    const users = await UserModel.findAll();
+    const savedUser = users[0];
+    expect(savedUser.inactive).toBe(true);
+  });
+
+  it('creates user in inactive mode on initial signup even the request body contains inactive as false', async () => {
+    await request(app).post('/api/1.0/users').send({
+      username: 'user1',
+      email: 'user1@mail.com',
+      password: 'P4ssword',
+      inactive: false,
+    });
+
+    const users = await UserModel.findAll();
+    const savedUser = users[0];
+    expect(savedUser.inactive).toBe(true);
+  });
+
+  it('creates an activationToken for user', async () => {
+    await postValidUser();
+
+    const users = await UserModel.findAll();
+    const savedUser = users[0];
+    expect(savedUser.activationToken).toBeTruthy();
   });
 });

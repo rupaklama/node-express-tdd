@@ -34,7 +34,6 @@ router.post(
       .bail()
       .isEmail()
       .withMessage('Email is not valid'),
-
     check('password')
       .notEmpty()
       .withMessage('Password cannot be empty')
@@ -74,9 +73,17 @@ router.post(
       return res.status(400).send({ validationErrors: validationErrors });
     }
 
-    await userService.createUser(req.body);
+    try {
+      await userService.createUser(req.body);
 
-    res.status(201).send({ message: 'User created!' });
+      res.status(201).send({ message: 'User created!' });
+    } catch (err) {
+      return res.status(400).send({
+        validationErrors: {
+          email: 'Email in use',
+        },
+      });
+    }
 
     next();
   })

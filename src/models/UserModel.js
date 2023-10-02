@@ -19,9 +19,19 @@ UserModel.init(
     },
     email: {
       type: Sequelize.STRING,
+      unique: true,
     },
 
     password: {
+      type: Sequelize.STRING,
+    },
+
+    inactive: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
+    },
+
+    activationToken: {
       type: Sequelize.STRING,
     },
   },

@@ -15,7 +15,14 @@ process.on('uncaughtException', (err) => {
 });
 
 // initialize db
-sequelize.sync();
+sequelize.sync({
+  // to apply current changes to be reflected in database as well
+  // eg. updating modal instances properties
+  // note: this 'force' operation will clean up database,
+  // removes all data and creates a new data every time.
+  // That is why this configuration should not be using in Prod Environment.
+  force: true,
+});
 
 // note - running app here in this module to listen only once
 // this avoids listening again in our test cases
