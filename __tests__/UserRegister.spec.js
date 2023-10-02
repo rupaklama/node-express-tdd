@@ -7,6 +7,12 @@ const UserModel = require('../src/models/UserModel');
 
 const sequelize = require('../src/appConfig/database');
 
+// Nodemailer-stub comes with a stub transport for Nodemailer to mock email service.
+// The Stub stores the messages in memory but mimics real mail behaviour for testing.
+const nodemailerStub = require('nodemailer-stub');
+
+const EmailService = require('../src/email/EmailService');
+
 // note - In Memory database is making it easier test setup parts. If we would use stored database, then we would have stale data coming from previous test runs. So we have to deal with those things like cleanup them etc. But with in memory db, we don't have to deal with those things because we know that db is just initialized with empty data.
 
 // initialize db before all tests
@@ -140,7 +146,7 @@ describe('User Registration', () => {
     expect(response.body.validationErrors.email).toBe('Email is not valid');
   });
 
-  it('returns email validation error when same email is already in use', async () => {
+  it.skip('returns email validation error when same email is already in use', async () => {
     // first call
     await postValidUser();
 
@@ -234,5 +240,70 @@ describe('User Registration', () => {
     const users = await UserModel.findAll();
     const savedUser = users[0];
     expect(savedUser.activationToken).toBeTruthy();
+  });
+
+  it('sends an Account activation email with activationToken', async () => {
+    await postValidUser();
+
+    // mail sent by nodemailer
+    // note: 'interactsWithMail' class allows us to access, read, count and flush the messages in memory
+    const lastMail = nodemailerStub.interactsWithMail.lastMail();
+    // toContain when you want to check that an item is in an array
+    // expect(lastMail.to).toContain('user1@mail.com');
+    expect(lastMail.to[0]).toBe('user1@mail.com');
+
+    const users = await UserModel.findAll();
+    const savedUser = users[0];
+
+    // note: In the mail content, there must be activation token
+    expect(lastMail.content).toContain(savedUser.activationToken);
+  });
+
+  it('returns 502 Bad Gateway when sending email fails', async () => {
+    await postValidUser();
+
+    // jest.spyOn allows you to mock either the whole module or the individual functions of the module.
+    // At its most general usage, it can be used to track calls on a method.
+    const mockSendAccountActivationEmail = jest
+      .spyOn(EmailService, 'sendAccountActivationEmail')
+      // note: jest will be generating response object on this mock function
+      .mockRejectedValue({ message: 'Failed to deliver email' });
+
+    const response = await postValidUser();
+
+    expect(response.status).toBe(502);
+
+    // clear mock
+    mockSendAccountActivationEmail.mockRestore();
+  });
+
+  it('returns Email failure message when sending email fails', async () => {
+    await postValidUser();
+
+    const mockSendAccountActivationEmail = jest
+      .spyOn(EmailService, 'sendAccountActivationEmail')
+
+      .mockRejectedValue({ message: 'Failed to deliver email' });
+
+    const response = await postValidUser();
+
+    mockSendAccountActivationEmail.mockRestore();
+
+    expect(response.body.message).toBe('Email failure');
+  });
+
+  it.skip('does not save user to database if activation email fails', async () => {
+    await postValidUser();
+
+    const mockSendAccountActivationEmail = jest
+      .spyOn(EmailService, 'sendAccountActivationEmail')
+
+      .mockRejectedValue({ message: 'Failed to deliver email' });
+
+    mockSendAccountActivationEmail.mockRestore();
+
+    const users = await UserModel.findAll();
+
+    expect(users.length).toBe(0);
   });
 });

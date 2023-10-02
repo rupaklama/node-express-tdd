@@ -34,6 +34,13 @@ router.post(
       .bail()
       .isEmail()
       .withMessage('Email is not valid'),
+    // .bail()
+    // .custom(async (email) => {
+    //   const user = await userService.findByEmail(email);
+    //   if (user) {
+    //     throw new AppError('Email in use', 400);
+    //   }
+    // })
     check('password')
       .notEmpty()
       .withMessage('Password cannot be empty')
@@ -62,7 +69,7 @@ router.post(
 
     // 'validationResult' - Extracts the validation errors of an express request & returns it
     //  msg: 'Invalid value' - This is default error message set with validationResult
-    // note - to customize the default message chain withMessage() in the validation
+    // note - to customize the default message, chain withMessage() in the validation
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -78,11 +85,7 @@ router.post(
 
       res.status(201).send({ message: 'User created!' });
     } catch (err) {
-      return res.status(400).send({
-        validationErrors: {
-          email: 'Email in use',
-        },
-      });
+      return res.status(502).send({ message: 'Email failure' });
     }
 
     next();
