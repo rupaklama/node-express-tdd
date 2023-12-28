@@ -23,7 +23,6 @@ const dbConfig = config.get('database'); // database property in config object
 
 // To connect to the database, you must create a Sequelize instance
 // Passing parameters separately - ('database', 'username', 'password')
-// const sequelize = new Sequelize('hoaxify', 'my-db-user', 'db-p4ssword', {
 const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
   // database
   // dialect: 'sqlite',

@@ -5,7 +5,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const userService = require('./userService');
-const catchAsync = require('../../utils/catchAsync');
+
 const AppError = require('../../utils/appError');
 
 // Sanitization modifies the input to ensure that it is valid (such as removing white spaces).
@@ -53,7 +53,7 @@ router.post(
       .withMessage('Password must have at least 1 uppercase, 1 lowercase letter and 1 number'),
   ],
 
-  catchAsync(async (req, res, next) => {
+  async (req, res, next) => {
     // const user = req.body;
 
     // if (user.username === null || user.email === null) {
@@ -83,13 +83,11 @@ router.post(
     try {
       await userService.createUser(req.body);
 
-      res.status(201).send({ message: 'User created!' });
+      return res.status(201).send({ message: 'User created!' });
     } catch (err) {
       return res.status(502).send({ message: 'Email failure' });
     }
-
-    next();
-  })
+  }
 );
 
 module.exports = router;

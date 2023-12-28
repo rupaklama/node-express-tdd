@@ -16,10 +16,8 @@ process.on('uncaughtException', (err) => {
 
 // initialize db
 sequelize.sync({
-  // to apply current changes to be reflected in database as well
-  // eg. updating modal instances properties
-  // note: this 'force' operation will clean up database,
-  // removes all data and creates a new data every time.
+  // to auto apply current changes to be reflect in database like adding/updating modal instances properties for dev.
+  // note: this 'force' operation will remove old db and creates a new db on every code changes.
   // That is why this configuration should not be using in Prod Environment.
   force: true,
 });

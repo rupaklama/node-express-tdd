@@ -7,6 +7,8 @@ const sequelize = require('../../appConfig/database');
 
 const generateToken = (length) => {
   // random basic strings in hex format
+  // 4 - <Buffer 0c 5d d9 41> is 4 bytes of data returning as random string of letters
+  // & numbers with 'hex' format - 'e0bed9fd'
   return crypto.randomBytes(length).toString('hex').substring(0, length);
 };
 
@@ -33,7 +35,7 @@ const createUser = async (body) => {
     // don't store in db
     await transaction.rollback();
 
-    // throw new Error(err);
+    // return new Error(err);
   }
 };
 

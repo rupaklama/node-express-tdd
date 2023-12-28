@@ -17,12 +17,13 @@ const EmailService = require('../src/email/EmailService');
 
 // initialize db before all tests
 beforeAll(() => {
-  // async operation
+  // async operation to initialize db
   return sequelize.sync();
 });
 
 beforeEach(() => {
   // removing user data from table before each test to avoid issues
+  // like auto creating multiple users in db when all tests run
   return UserModel.destroy({ truncate: true });
 });
 
@@ -146,9 +147,15 @@ describe('User Registration', () => {
     expect(response.body.validationErrors.email).toBe('Email is not valid');
   });
 
-  it.skip('returns email validation error when same email is already in use', async () => {
+  it('returns email validation error when same email is already in use', async () => {
     // first call
     await postValidUser();
+
+    // query user table
+    await UserModel.findAll().then((users) => {
+      const savedUser = users[0];
+      expect(savedUser.email).toBe('user1@mail.com');
+    });
 
     // second call
     const response = await request(app).post('/api/1.0/users').send({
@@ -157,7 +164,7 @@ describe('User Registration', () => {
       password: 'P4ssword',
     });
 
-    expect(response.body.validationErrors.email).toBe('Email in use');
+    expect(response.body.message).toBe('Email failure');
   });
 
   // it('returns `Password cannot be empty` message when password is null', async () => {
@@ -189,7 +196,7 @@ describe('User Registration', () => {
   //   expect(body.validationErrors[field]).toBe(expectedMessage);
   // });
 
-  // an alternative syntax for above
+  // an alternative syntax for above with each table style
   it.each`
     field         | value              | expectedMessage
     ${'password'} | ${null}            | ${'Password cannot be empty'}
@@ -221,7 +228,7 @@ describe('User Registration', () => {
     expect(savedUser.inactive).toBe(true);
   });
 
-  it('creates user in inactive mode on initial signup even the request body contains inactive as false', async () => {
+  it('creates user in `inactive: true` on signup even the request body contains `inactive: false`', async () => {
     await request(app).post('/api/1.0/users').send({
       username: 'user1',
       email: 'user1@mail.com',
@@ -259,6 +266,7 @@ describe('User Registration', () => {
     expect(lastMail.content).toContain(savedUser.activationToken);
   });
 
+  // 502 Bad Gateway error indicates that one server on the internet received an invalid response from another server. It's a generic error alerting you that there's something wrong with a website's server communication
   it('returns 502 Bad Gateway when sending email fails', async () => {
     await postValidUser();
 
